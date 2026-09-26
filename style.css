@@ -1,0 +1,6243 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+/* =========================================================
+   NETSCAPE
+   Global Experience System
+   ========================================================= */
+
+:root {
+    --bg: #050914;
+    --bg-deep: #02050b;
+    --bg-light: #08111f;
+
+    --panel: rgba(8, 17, 31, 0.82);
+    --panel-solid: #091321;
+
+    --cyan: #46e6ff;
+    --cyan-soft: rgba(70, 230, 255, 0.16);
+    --cyan-bright: #9af4ff;
+
+    --gold: #e9b95b;
+    --gold-soft: rgba(233, 185, 91, 0.16);
+
+    --purple: #a984ff;
+    --green: #65e6a1;
+    --red: #ff657a;
+
+    --white: #f4f8ff;
+    --text: #dbe7f5;
+    --muted: #91a2b8;
+    --dim: #52647a;
+
+    --border: rgba(145, 162, 184, 0.16);
+    --border-bright: rgba(70, 230, 255, 0.38);
+
+    --nav-height: 78px;
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+
+    font-family:
+        "Space Grotesk",
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    border: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--cyan);
+    color: var(--bg);
+}
+
+
+/* =========================================================
+   GLOBAL BACKGROUND
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: 9998;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(70, 230, 255, 0.045),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(2, 5, 11, 0.1),
+            rgba(2, 5, 11, 0.4)
+        );
+}
+
+.page-noise {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: 9997;
+
+    opacity: 0.045;
+
+    background-image:
+        radial-gradient(
+            rgba(255, 255, 255, 0.5) 0.5px,
+            transparent 0.5px
+        );
+
+    background-size: 5px 5px;
+
+    mix-blend-mode: overlay;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(70, 230, 255, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(70, 230, 255, 0.6);
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: var(--nav-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 4vw;
+
+    z-index: 500;
+
+    background: rgba(3, 8, 16, 0.7);
+
+    border-bottom:
+        1px solid rgba(145, 162, 184, 0.08);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.logo {
+    position: relative;
+
+    font-size: 1.1rem;
+    font-weight: 900;
+
+    letter-spacing: 0.2em;
+
+    color: var(--white);
+}
+
+.logo::after {
+    content: "";
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    right: -10px;
+    bottom: 2px;
+
+    background: var(--cyan);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 12px var(--cyan);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    position: relative;
+
+    font-size: 0.72rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+
+    color: var(--muted);
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--white);
+}
+
+.nav-link.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -9px;
+
+    height: 1px;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 8px var(--cyan);
+}
+
+.connect-button {
+    padding: 0.7rem 1.1rem;
+
+    color: var(--cyan);
+
+    background:
+        rgba(70, 230, 255, 0.05);
+
+    border:
+        1px solid rgba(70, 230, 255, 0.35);
+
+    border-radius: 2px;
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.connect-button:hover {
+    background:
+        rgba(70, 230, 255, 0.12);
+
+    box-shadow:
+        0 0 25px rgba(70, 230, 255, 0.12);
+
+    transform: translateY(-1px);
+}
+
+.connect-button.connected {
+    color: var(--green);
+
+    border-color:
+        rgba(101, 230, 161, 0.45);
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.section {
+    position: relative;
+
+    min-height: 100vh;
+
+    padding:
+        140px 5vw;
+}
+
+.section-index {
+    margin-bottom: 0.8rem;
+
+    color: var(--cyan);
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    letter-spacing: 0.2em;
+}
+
+.section-eyebrow {
+    margin-bottom: 0.8rem;
+
+    color: var(--cyan);
+
+    font-size: 0.68rem;
+    font-weight: 800;
+
+    letter-spacing: 0.22em;
+}
+
+.section-header {
+    display: grid;
+
+    grid-template-columns:
+        110px 1fr;
+
+    gap: 2rem;
+
+    max-width: 1300px;
+
+    margin:
+        0 auto 4rem;
+}
+
+.section-header h2 {
+    max-width: 900px;
+
+    font-size:
+        clamp(3rem, 7vw, 6.7rem);
+
+    line-height: 0.88;
+
+    letter-spacing: -0.055em;
+
+    text-transform: uppercase;
+}
+
+.section-header h2 span {
+    color: var(--cyan);
+}
+
+.section-description {
+    max-width: 560px;
+
+    margin-top: 1.5rem;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.7rem;
+
+    min-height: 48px;
+
+    padding:
+        0.85rem 1.25rem;
+
+    font-size: 0.7rem;
+    font-weight: 900;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s var(--ease),
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    color: #021017;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 0 1px rgba(70, 230, 255, 0.3),
+        0 0 30px rgba(70, 230, 255, 0.12);
+}
+
+.btn-primary:hover {
+    box-shadow:
+        0 0 0 1px rgba(70, 230, 255, 0.5),
+        0 0 40px rgba(70, 230, 255, 0.25);
+}
+
+.btn-secondary {
+    color: var(--white);
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--border-bright);
+
+    background:
+        rgba(70, 230, 255, 0.05);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    min-height: 100vh;
+
+    padding:
+        150px 5vw 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.hero-glow {
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+}
+
+.hero-glow-one {
+    top: -350px;
+    right: -100px;
+
+    background:
+        rgba(70, 230, 255, 0.1);
+}
+
+.hero-glow-two {
+    bottom: -500px;
+    left: -200px;
+
+    background:
+        rgba(74, 111, 255, 0.07);
+}
+
+.grid {
+    position: absolute;
+
+    inset:
+        45% -10% -30%;
+
+    opacity: 0.28;
+
+    background-image:
+        linear-gradient(
+            rgba(70, 230, 255, 0.12) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(70, 230, 255, 0.12) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(500px)
+        rotateX(63deg)
+        scale(1.5);
+
+    transform-origin:
+        center top;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 30%,
+            black 70%,
+            transparent
+        );
+}
+
+.network-node {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    background: var(--cyan);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 18px var(--cyan);
+
+    animation:
+        nodePulse 3s infinite ease-in-out;
+}
+
+.node-1 {
+    top: 22%;
+    left: 68%;
+}
+
+.node-2 {
+    top: 32%;
+    left: 83%;
+
+    animation-delay: 0.4s;
+}
+
+.node-3 {
+    top: 51%;
+    left: 72%;
+
+    animation-delay: 0.9s;
+}
+
+.node-4 {
+    top: 67%;
+    left: 87%;
+
+    animation-delay: 1.2s;
+}
+
+.node-5 {
+    top: 74%;
+    left: 58%;
+
+    animation-delay: 1.7s;
+}
+
+.node-6 {
+    top: 18%;
+    left: 52%;
+
+    animation-delay: 2s;
+}
+
+.network-line {
+    position: absolute;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(70, 230, 255, 0.3),
+            transparent
+        );
+
+    transform-origin:
+        left center;
+}
+
+.line-1 {
+    top: 22%;
+    left: 68%;
+
+    width: 180px;
+
+    transform:
+        rotate(23deg);
+}
+
+.line-2 {
+    top: 32%;
+    left: 83%;
+
+    width: 160px;
+
+    transform:
+        rotate(115deg);
+}
+
+.line-3 {
+    top: 51%;
+    left: 72%;
+
+    width: 220px;
+
+    transform:
+        rotate(43deg);
+}
+
+.line-4 {
+    top: 67%;
+    left: 58%;
+
+    width: 240px;
+
+    transform:
+        rotate(-17deg);
+}
+
+@keyframes nodePulse {
+
+    0%,
+    100% {
+        transform: scale(0.8);
+        opacity: 0.45;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 1;
+    }
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(850px, 70vw);
+}
+
+.hero-eyebrow {
+    margin-bottom: 1.4rem;
+
+    color: var(--cyan);
+
+    font-size: 0.72rem;
+    font-weight: 800;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
+}
+
+.hero-title {
+    display: flex;
+
+    flex-direction: column;
+
+    max-width: 950px;
+
+    font-size:
+        clamp(4rem, 8.8vw, 9.4rem);
+
+    line-height: 0.83;
+
+    letter-spacing: -0.075em;
+
+    text-transform: uppercase;
+}
+
+.hero-title-main {
+    color: var(--white);
+}
+
+.hero-title-accent {
+    color: var(--cyan);
+
+    text-shadow:
+        0 0 35px rgba(70, 230, 255, 0.08);
+}
+
+.hero-title-secondary {
+    margin-top: 0.2em;
+
+    color: var(--white);
+
+    font-size: 0.72em;
+}
+
+.hero-description {
+    max-width: 700px;
+
+    margin-top: 2rem;
+
+    color: var(--muted);
+
+    font-size: 1rem;
+
+    line-height: 1.75;
+}
+
+.hero-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.8rem;
+
+    margin-top: 2rem;
+}
+
+.hero-discovery-hint {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    margin-top: 2.4rem;
+
+    color: var(--muted);
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.1em;
+}
+
+.hero-discovery-hint strong {
+    display: block;
+
+    margin-bottom: 0.25rem;
+
+    color: var(--text);
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.14em;
+}
+
+.hero-discovery-hint span:last-child {
+    display: block;
+
+    color: var(--dim);
+
+    line-height: 1.5;
+}
+
+.discovery-icon {
+    display: grid;
+
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    color: var(--cyan);
+
+    border:
+        1px solid rgba(70, 230, 255, 0.25);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 18px rgba(70, 230, 255, 0.08);
+}
+
+.hero-side-data {
+    position: absolute;
+
+    left: 1.5vw;
+    bottom: 18%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem;
+
+    z-index: 3;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.6rem;
+
+    letter-spacing: 0.18em;
+}
+
+.hero-side-data span:nth-child(2) {
+    color: var(--cyan);
+}
+
+.hero-nexo {
+    position: absolute;
+
+    right: 10vw;
+    top: 50%;
+
+    width: 280px;
+    height: 280px;
+
+    transform:
+        translateY(-50%);
+
+    z-index: 3;
+}
+
+.nexo-orbit {
+    position: absolute;
+
+    inset: 20px;
+
+    border:
+        1px solid rgba(70, 230, 255, 0.22);
+
+    border-radius: 50%;
+
+    transform:
+        rotate(-18deg)
+        scaleX(1.35);
+
+    box-shadow:
+        0 0 35px rgba(70, 230, 255, 0.04);
+}
+
+.nexo-orbit::before,
+.nexo-orbit::after {
+    content: "";
+
+    position: absolute;
+
+    border:
+        1px solid rgba(70, 230, 255, 0.12);
+
+    border-radius: 50%;
+}
+
+.nexo-orbit::before {
+    inset: 34px -15px;
+}
+
+.nexo-orbit::after {
+    inset: -15px 34px;
+}
+
+.nexo-avatar {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 104px;
+    height: 104px;
+
+    display: grid;
+
+    place-items: center;
+
+    transform:
+        translate(-50%, -50%);
+
+    border:
+        1px solid rgba(70, 230, 255, 0.42);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70, 230, 255, 0.16),
+            rgba(4, 11, 21, 0.94) 65%
+        );
+
+    box-shadow:
+        0 0 40px rgba(70, 230, 255, 0.08),
+        inset 0 0 30px rgba(70, 230, 255, 0.04);
+}
+
+.nexo-avatar::before {
+    content: "";
+
+    position: absolute;
+
+    width: 42px;
+    height: 12px;
+
+    top: 31px;
+
+    border:
+        2px solid var(--cyan);
+
+    border-bottom: 0;
+
+    border-radius:
+        15px 15px 0 0;
+
+    box-shadow:
+        0 0 14px rgba(70, 230, 255, 0.35);
+}
+
+.nexo-avatar::after {
+    content: "";
+
+    position: absolute;
+
+    width: 52px;
+    height: 3px;
+
+    bottom: 25px;
+
+    background:
+        rgba(70, 230, 255, 0.5);
+
+    box-shadow:
+        0 0 12px rgba(70, 230, 255, 0.28);
+}
+
+.nexo-avatar span {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 5px;
+
+    color: var(--cyan);
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    text-shadow:
+        0 0 20px rgba(70, 230, 255, 0.35);
+}
+
+.nexo-hero-label {
+    position: absolute;
+
+    right: 34px;
+    bottom: 44px;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+}
+
+.nexo-hero-caption {
+    position: absolute;
+
+    right: -58px;
+    bottom: 22px;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.56rem;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    white-space: nowrap;
+
+    opacity: 0.9;
+}
+
+.scroll-indicator {
+    position: absolute;
+
+    left: 50%;
+    bottom: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    transform:
+        translateX(-50%);
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.16em;
+}
+
+.scroll-line {
+    display: block;
+
+    width: 45px;
+    height: 1px;
+
+    background:
+        var(--dim);
+}
+
+
+/* =========================================================
+   INTERNET EVOLUTION
+   ========================================================= */
+
+.evolution {
+    background:
+        linear-gradient(
+            180deg,
+            var(--bg),
+            var(--bg-light)
+        );
+}
+
+.evolution-grid {
+    max-width: 1300px;
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 1rem;
+}
+
+.evolution-card {
+    position: relative;
+
+    min-height: 400px;
+
+    padding: 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.025),
+            rgba(255, 255, 255, 0.008)
+        );
+
+    border:
+        1px solid var(--border);
+
+    transition:
+        transform 0.4s var(--ease),
+        border-color 0.4s ease,
+        background 0.4s ease;
+}
+
+.evolution-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(70, 230, 255, 0.07),
+            transparent 55%
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease;
+}
+
+.evolution-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(70, 230, 255, 0.32);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70, 230, 255, 0.05),
+            rgba(255, 255, 255, 0.01)
+        );
+}
+
+.evolution-card:hover::before {
+    opacity: 1;
+}
+
+.evolution-card-number {
+    position: absolute;
+
+    top: 1.3rem;
+    right: 1.3rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.14em;
+}
+
+.evolution-card-top {
+    position: absolute;
+
+    top: 1.3rem;
+    left: 1.3rem;
+    right: 4rem;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.evolution-status {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.56rem;
+
+    letter-spacing: 0.14em;
+}
+
+.evolution-arrow {
+    color: var(--dim);
+
+    font-size: 1rem;
+}
+
+.evolution-card h3 {
+    position: relative;
+
+    font-size:
+        clamp(2rem, 4vw, 4rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.05em;
+}
+
+.evolution-divider {
+    width: 100%;
+
+    height: 1px;
+
+    margin:
+        1.4rem 0;
+
+    background:
+        var(--border);
+}
+
+.evolution-card p {
+    position: relative;
+
+    max-width: 330px;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.evolution-keyword {
+    position: relative;
+
+    margin-top: 1.5rem;
+
+    color: var(--white);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.65rem;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+}
+
+.evolution-card-featured {
+    border-color:
+        rgba(70, 230, 255, 0.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70, 230, 255, 0.06),
+            rgba(255, 255, 255, 0.01)
+        );
+}
+
+.evolution-transition {
+    max-width: 1300px;
+
+    margin:
+        6rem auto 0;
+
+    padding:
+        2rem 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-top:
+        1px solid var(--border);
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.evolution-transition span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.6rem;
+
+    letter-spacing: 0.2em;
+}
+
+.evolution-transition strong {
+    font-size:
+        clamp(1.3rem, 2.5vw, 2.4rem);
+
+    letter-spacing: -0.04em;
+}
+
+
+/* =========================================================
+   NETWORK SECTION
+   ========================================================= */
+
+.network-section {
+    background:
+        var(--bg);
+}
+
+.network-header {
+    max-width: 1300px;
+
+    margin:
+        0 auto 3rem;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+}
+
+.network-header h2 {
+    max-width: 850px;
+
+    font-size:
+        clamp(3rem, 7vw, 6.7rem);
+
+    line-height: 0.88;
+
+    letter-spacing: -0.055em;
+
+    text-transform: uppercase;
+}
+
+.network-header h2 span {
+    color: var(--cyan);
+}
+
+.network-instruction {
+    flex-shrink: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 0.35rem;
+
+    color: var(--muted);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+
+    text-align: right;
+}
+
+.drag-icon {
+    color: var(--cyan);
+
+    font-size: 1.3rem;
+}
+
+.network-instruction small {
+    color: var(--dim);
+
+    font-size: 0.5rem;
+}
+
+.concept-carousel-wrapper {
+    position: relative;
+
+    max-width: 1400px;
+
+    margin:
+        0 auto;
+}
+
+.concept-grid {
+    display: flex;
+
+    gap: 1rem;
+
+    overflow-x: auto;
+
+    scroll-snap-type:
+        x mandatory;
+
+    scrollbar-width: none;
+
+    padding:
+        0.5rem 2vw 2rem;
+}
+
+.concept-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.concept-card {
+    position: relative;
+
+    flex:
+        0 0 min(360px, 29vw);
+
+    min-height: 520px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    scroll-snap-align: center;
+
+    padding: 1.5rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.025),
+            rgba(255,255,255,0.006)
+        );
+
+    border:
+        1px solid var(--border);
+
+    transition:
+        transform 0.45s var(--ease),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.concept-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(70, 230, 255, 0.3);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.18);
+}
+
+.concept-card-glow {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(70, 230, 255, 0.06);
+
+    filter:
+        blur(30px);
+
+    pointer-events: none;
+}
+
+.concept-card-number {
+    position: absolute;
+
+    top: 1.2rem;
+    right: 1.2rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.6rem;
+
+    letter-spacing: 0.16em;
+}
+
+.concept-card-visual {
+    position: relative;
+
+    min-height: 250px;
+
+    display: grid;
+
+    place-items: center;
+}
+
+.concept-card-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.concept-label {
+    margin-bottom: 0.8rem;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+.concept-card h3 {
+    font-size:
+        clamp(2rem, 3vw, 3rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.055em;
+
+    text-transform: uppercase;
+}
+
+.concept-card-content > p:not(.concept-label) {
+    max-width: 300px;
+
+    margin-top: 1rem;
+
+    color: var(--muted);
+
+    line-height: 1.65;
+
+    font-size: 0.86rem;
+}
+
+.concept-explore {
+    margin-top: 1.4rem;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 0.6rem;
+
+    color: var(--white);
+
+    background: transparent;
+
+    font-size: 0.63rem;
+    font-weight: 800;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+}
+
+.concept-explore span {
+    color: var(--cyan);
+
+    transition:
+        transform 0.25s ease;
+}
+
+.concept-explore:hover span {
+    transform:
+        translateX(4px);
+}
+
+.carousel-arrow {
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 10;
+
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+
+    place-items: center;
+
+    transform:
+        translateY(-50%);
+
+    color: var(--white);
+
+    background:
+        rgba(4, 11, 20, 0.86);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.carousel-arrow:hover {
+    color: var(--cyan);
+
+    border-color:
+        var(--border-bright);
+
+    transform:
+        translateY(-50%) scale(1.05);
+}
+
+.carousel-prev {
+    left: -10px;
+}
+
+.carousel-next {
+    right: -10px;
+}
+
+.concept-pagination {
+    max-width: 1300px;
+
+    margin:
+        0 auto;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 0.45rem;
+}
+
+.pagination-dot {
+    width: 22px;
+    height: 2px;
+
+    background:
+        rgba(145, 162, 184, 0.2);
+
+    transition:
+        background 0.25s ease,
+        width 0.25s ease;
+}
+
+.pagination-dot.active {
+    width: 45px;
+
+    background:
+        var(--cyan);
+
+    box-shadow:
+        0 0 10px rgba(70,230,255,0.3);
+}
+
+.network-bottom-strip {
+    max-width: 1300px;
+
+    margin:
+        4rem auto 0;
+
+    padding-top:
+        2rem;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.network-statement {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 1rem;
+}
+
+.statement-icon {
+    color: var(--cyan);
+
+    font-size: 1.3rem;
+}
+
+.network-statement strong {
+    font-size: 1.1rem;
+
+    line-height: 1.05;
+
+    letter-spacing: -0.03em;
+}
+
+.network-stats {
+    display: flex;
+
+    gap: 3rem;
+}
+
+.network-stat {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 0.6rem;
+}
+
+.network-stat strong {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 1.5rem;
+}
+
+.network-stat span {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* =========================================================
+   BLOCKCHAIN VISUAL
+   ========================================================= */
+
+.block-stack {
+    position: relative;
+
+    width: 170px;
+    height: 170px;
+}
+
+.block {
+    position: absolute;
+
+    width: 125px;
+    height: 95px;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.12),
+            rgba(8,17,31,0.9)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.28);
+
+    transform:
+        skewY(-12deg);
+
+    box-shadow:
+        0 0 35px rgba(70,230,255,0.05);
+}
+
+.block-back {
+    top: 10px;
+    left: 35px;
+
+    opacity: 0.35;
+}
+
+.block-middle {
+    top: 35px;
+    left: 18px;
+
+    opacity: 0.65;
+}
+
+.block-front {
+    top: 65px;
+    left: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.35rem;
+}
+
+.block-front span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.15em;
+}
+
+.block-front strong {
+    font-size: 1.7rem;
+}
+
+
+/* =========================================================
+   SMART CONTRACT VISUAL
+   ========================================================= */
+
+.contract-paper {
+    position: relative;
+
+    width: 150px;
+    height: 190px;
+
+    padding: 2rem 1.2rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.7rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(169,132,255,0.08),
+            rgba(8,17,31,0.9)
+        );
+
+    border:
+        1px solid rgba(169,132,255,0.3);
+
+    transform:
+        rotate(-4deg);
+
+    box-shadow:
+        0 25px 50px rgba(0,0,0,0.25);
+}
+
+.contract-paper span {
+    display: block;
+
+    width: 75%;
+
+    height: 4px;
+
+    background:
+        rgba(169,132,255,0.25);
+}
+
+.contract-paper span:nth-child(2) {
+    width: 55%;
+}
+
+.contract-paper span:nth-child(3) {
+    width: 85%;
+}
+
+.contract-paper span:nth-child(4) {
+    width: 45%;
+}
+
+.contract-seal {
+    position: absolute;
+
+    right: -20px;
+    bottom: -15px;
+
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--purple);
+
+    background:
+        rgba(169,132,255,0.08);
+
+    border:
+        1px solid rgba(169,132,255,0.35);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   CRYPTO VISUAL
+   ========================================================= */
+
+.crypto-visual {
+    isolation: isolate;
+}
+
+.crypto-orbit {
+    position: absolute;
+
+    width: 190px;
+    height: 95px;
+
+    border:
+        1px solid rgba(233,185,91,0.35);
+
+    border-radius: 50%;
+
+    transform:
+        rotate(-20deg);
+
+    box-shadow:
+        0 0 30px rgba(233,185,91,0.05);
+}
+
+.crypto-coin {
+    position: relative;
+
+    width: 90px;
+    height: 90px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: #171006;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffe5a4,
+            var(--gold) 55%,
+            #9c762d
+        );
+
+    border:
+        2px solid rgba(255,255,255,0.3);
+
+    border-radius: 50%;
+
+    font-size: 3rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 0 35px rgba(233,185,91,0.14);
+}
+
+.crypto-data {
+    position: absolute;
+
+    right: 12px;
+    bottom: 22px;
+
+    color: var(--gold);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   NFT VISUAL
+   ========================================================= */
+
+.nft-frame {
+    position: relative;
+
+    width: 180px;
+    height: 210px;
+
+    padding: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.08),
+            rgba(8,17,31,0.95)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.25);
+
+    box-shadow:
+        0 0 45px rgba(70,230,255,0.05);
+}
+
+.nft-art {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(70,230,255,0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #091522,
+            #030811
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.16);
+}
+
+.nft-art::before,
+.nft-art::after {
+    content: "";
+
+    position: absolute;
+
+    border:
+        1px solid rgba(70,230,255,0.14);
+
+    border-radius: 50%;
+}
+
+.nft-art::before {
+    width: 160px;
+    height: 80px;
+
+    left: -30px;
+    top: 45px;
+
+    transform:
+        rotate(25deg);
+}
+
+.nft-art::after {
+    width: 80px;
+    height: 160px;
+
+    right: 5px;
+    top: -25px;
+
+    transform:
+        rotate(-20deg);
+}
+
+.nft-art-eye {
+    position: absolute;
+
+    top: 45%;
+
+    width: 20px;
+    height: 20px;
+
+    background:
+        var(--cyan);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 20px var(--cyan);
+}
+
+.nft-art-eye:first-child {
+    left: 32%;
+}
+
+.nft-art-eye:nth-child(2) {
+    right: 32%;
+}
+
+.nft-art-core {
+    position: absolute;
+
+    left: 50%;
+    top: 56%;
+
+    width: 35px;
+    height: 35px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    background:
+        rgba(70,230,255,0.1);
+
+    border:
+        1px solid var(--cyan);
+
+    box-shadow:
+        0 0 25px rgba(70,230,255,0.16);
+}
+
+.nft-frame-id {
+    position: absolute;
+
+    right: 8px;
+    bottom: -25px;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.15em;
+}
+
+
+/* =========================================================
+   DAO VISUAL
+   ========================================================= */
+
+.dao-ring {
+    position: relative;
+
+    width: 180px;
+    height: 180px;
+
+    border:
+        1px solid rgba(169,132,255,0.25);
+
+    border-radius: 50%;
+
+    box-shadow:
+        inset 0 0 35px rgba(169,132,255,0.04);
+}
+
+.dao-ring::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 28px;
+
+    border:
+        1px dashed rgba(169,132,255,0.3);
+
+    border-radius: 50%;
+}
+
+.dao-core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+
+    place-items: center;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: var(--purple);
+
+    background:
+        rgba(169,132,255,0.08);
+
+    border:
+        1px solid rgba(169,132,255,0.35);
+
+    border-radius: 50%;
+
+    font-size: 1.5rem;
+}
+
+.dao-node {
+    position: absolute;
+
+    color: var(--purple);
+
+    text-shadow:
+        0 0 14px rgba(169,132,255,0.5);
+}
+
+.dao-node-1 {
+    top: 5px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+.dao-node-2 {
+    right: 5px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+}
+
+.dao-node-3 {
+    bottom: 5px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+.dao-node-4 {
+    left: 5px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+}
+
+
+/* =========================================================
+   WALLET VISUAL
+   ========================================================= */
+
+.wallet-device {
+    position: relative;
+
+    width: 190px;
+    height: 125px;
+
+    padding: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.08),
+            rgba(8,17,31,0.95)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.3);
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.3);
+}
+
+.wallet-device::before {
+    content: "";
+
+    position: absolute;
+
+    top: 18px;
+    right: -10px;
+
+    width: 30px;
+    height: 60px;
+
+    background:
+        rgba(70,230,255,0.06);
+
+    border:
+        1px solid rgba(70,230,255,0.2);
+
+    border-left: 0;
+
+    border-radius:
+        0 8px 8px 0;
+}
+
+.wallet-screen {
+    height: 100%;
+
+    padding: 1rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    background:
+        #030914;
+
+    border:
+        1px solid rgba(70,230,255,0.12);
+}
+
+.wallet-screen span {
+    color: var(--muted);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+}
+
+.wallet-screen strong {
+    color: var(--green);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   INTERACTION SECTION
+   ========================================================= */
+
+.interaction-section {
+    background:
+        linear-gradient(
+            180deg,
+            var(--bg),
+            #040a13
+        );
+}
+
+.blockchain-demo,
+.contract-demo {
+    max-width: 1300px;
+
+    margin:
+        0 auto 1.2rem;
+
+    padding: 2rem;
+
+    background:
+        rgba(255,255,255,0.015);
+
+    border:
+        1px solid var(--border);
+}
+
+.demo-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1.7rem;
+}
+
+.demo-eyebrow {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.16em;
+}
+
+.demo-header h3 {
+    margin-top: 0.4rem;
+
+    font-size:
+        clamp(2rem, 4vw, 3.5rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.05em;
+}
+
+.demo-status {
+    padding:
+        0.55rem 0.8rem;
+
+    color: var(--green);
+
+    border:
+        1px solid rgba(101,230,161,0.22);
+
+    background:
+        rgba(101,230,161,0.04);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+}
+
+.blockchain-chain {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.6rem;
+
+    overflow-x: auto;
+
+    padding:
+        0.8rem 0 1.3rem;
+
+    scrollbar-width: thin;
+}
+
+.chain-block {
+    flex:
+        0 0 170px;
+
+    min-height: 140px;
+
+    padding: 1rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.06),
+            rgba(8,17,31,0.9)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.2);
+}
+
+.chain-block-number {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+}
+
+.chain-block strong {
+    font-size: 0.9rem;
+}
+
+.chain-block small {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+}
+
+.chain-block code {
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.65rem;
+}
+
+.chain-connector {
+    flex:
+        0 0 auto;
+
+    color: var(--cyan);
+
+    font-size: 1.1rem;
+
+    opacity: 0.6;
+}
+
+.demo-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-top: 1rem;
+}
+
+.demo-feedback {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    letter-spacing: 0.12em;
+}
+
+.demo-feedback.success {
+    color: var(--green);
+}
+
+.contract-demo {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 3rem;
+
+    align-items: center;
+}
+
+.contract-demo-copy h3 {
+    margin-top: 0.6rem;
+
+    font-size:
+        clamp(2.3rem, 4vw, 4rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.055em;
+}
+
+.contract-demo-copy h3 span {
+    color: var(--purple);
+}
+
+.contract-demo-copy p {
+    max-width: 540px;
+
+    margin-top: 1rem;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.contract-console {
+    padding: 1.5rem;
+
+    background:
+        #030811;
+
+    border:
+        1px solid rgba(169,132,255,0.18);
+}
+
+.console-line {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding:
+        0.9rem 0;
+
+    border-bottom:
+        1px solid rgba(145,162,184,0.08);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.62rem;
+}
+
+.console-line span {
+    color: var(--dim);
+}
+
+.console-line strong {
+    color: var(--text);
+
+    font-weight: 500;
+}
+
+.console-arrow {
+    padding:
+        0.6rem 0;
+
+    color: var(--purple);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+}
+
+.contract-console .btn {
+    margin-top: 1.2rem;
+}
+
+.contract-result {
+    margin-top: 1rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.1em;
+}
+
+.contract-result.success {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   NETWORK PASSPORT
+   ========================================================= */
+
+.passport-section {
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #040a13,
+            #02050b
+        );
+}
+
+.passport-background {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 70% 40%,
+            rgba(70,230,255,0.08),
+            transparent 35%
+        );
+}
+
+.passport-layout {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 1300px;
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        0.8fr 1.2fr;
+
+    gap: 4rem;
+
+    align-items: center;
+}
+
+.passport-copy .section-eyebrow {
+    margin-bottom: 1rem;
+}
+
+.passport-copy h2 {
+    font-size:
+        clamp(3rem, 6vw, 6rem);
+
+    line-height: 0.88;
+
+    letter-spacing: -0.06em;
+
+    text-transform: uppercase;
+}
+
+.passport-copy h2 span {
+    color: var(--cyan);
+}
+
+.passport-copy h3 {
+    margin-top: 0.4rem;
+
+    color: var(--muted);
+
+    font-size:
+        clamp(1.5rem, 3vw, 2.7rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -0.04em;
+}
+
+.passport-copy > p:not(.passport-note) {
+    max-width: 480px;
+
+    margin-top: 1.5rem;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.passport-note {
+    max-width: 480px;
+
+    margin-top: 1rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    line-height: 1.6;
+
+    letter-spacing: 0.08em;
+}
+
+.network-passport {
+    padding: 1.4rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.05),
+            rgba(8,17,31,0.96)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.22);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,0.35);
+}
+
+.passport-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 1rem;
+
+    border-bottom:
+        1px solid var(--border);
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.52rem;
+
+    letter-spacing: 0.14em;
+}
+
+.passport-identity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-top: 1.4rem;
+}
+
+.passport-avatar {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background:
+        rgba(70,230,255,0.06);
+
+    border:
+        1px solid rgba(70,230,255,0.25);
+
+    border-radius: 50%;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 0 25px rgba(70,230,255,0.08);
+}
+
+.passport-identity span,
+.passport-field span {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+}
+
+.passport-identity strong {
+    display: block;
+
+    margin-top: 0.3rem;
+
+    color: var(--white);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.7rem;
+}
+
+.passport-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 1px;
+
+    margin-top: 1.4rem;
+
+    background:
+        var(--border);
+}
+
+.passport-field {
+    min-height: 95px;
+
+    padding: 1rem;
+
+    background:
+        var(--panel-solid);
+}
+
+.passport-field strong {
+    display: block;
+
+    margin-top: 0.5rem;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.65rem;
+
+    line-height: 1.4;
+}
+
+.passport-status {
+    color: var(--gold) !important;
+}
+
+.passport-status.connected {
+    color: var(--green) !important;
+}
+
+.passport-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-top: 1.2rem;
+}
+
+.passport-footer > span {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* =========================================================
+   CONCEPT OVERLAY
+   ========================================================= */
+
+.concept-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 0.35s ease,
+        visibility 0.35s ease;
+}
+
+.concept-overlay.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.concept-overlay-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(1,4,9,0.88);
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+}
+
+.concept-experience {
+    position: relative;
+
+    width: min(1400px, 96vw);
+    height: min(94vh, 1000px);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,16,29,0.98),
+            rgba(2,7,14,0.99)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.2);
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,0.6);
+
+    transform:
+        translateY(20px)
+        scale(0.985);
+
+    transition:
+        transform 0.45s var(--ease);
+}
+
+.concept-overlay.open .concept-experience {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.concept-experience-top {
+    height: 64px;
+
+    padding:
+        0 1.5rem;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.concept-progress {
+    display: flex;
+
+    gap: 0.35rem;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.12em;
+}
+
+.concept-network-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.45rem;
+
+    color: var(--green);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.52rem;
+
+    letter-spacing: 0.12em;
+}
+
+.status-dot {
+    width: 5px;
+    height: 5px;
+
+    background:
+        var(--green);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px rgba(101,230,161,0.6);
+}
+
+.concept-close {
+    justify-self: end;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--muted);
+
+    background:
+        transparent;
+
+    border:
+        1px solid var(--border);
+
+    cursor: pointer;
+
+    font-size: 1.2rem;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.concept-close:hover {
+    color: var(--cyan);
+
+    border-color:
+        var(--border-bright);
+
+    transform:
+        rotate(90deg);
+}
+
+.concept-experience-body {
+    height:
+        calc(100% - 64px);
+
+    overflow-y: auto;
+
+    padding:
+        1.5rem 2rem 2rem;
+}
+
+.concept-nexo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+
+    margin-bottom: 1.2rem;
+}
+
+.concept-nexo-avatar {
+    position: relative;
+
+    width: 72px;
+    height: 72px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,230,255,0.13),
+            rgba(3,10,19,0.95)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.28);
+
+    border-radius: 50%;
+}
+
+.concept-nexo-avatar span {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.concept-nexo-avatar::before {
+    content: "";
+
+    position: absolute;
+
+    width: 32px;
+    height: 9px;
+
+    top: 21px;
+
+    border:
+        1px solid var(--cyan);
+
+    border-bottom: 0;
+
+    border-radius:
+        12px 12px 0 0;
+}
+
+.concept-nexo-scan {
+    position: absolute;
+
+    width: 72px;
+    height: 72px;
+
+    border:
+        1px solid rgba(70,230,255,0.1);
+
+    border-radius: 50%;
+
+    animation:
+        nexoScan 3s infinite linear;
+}
+
+@keyframes nexoScan {
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+.concept-nexo-message {
+    max-width: 420px;
+
+    padding:
+        0.75rem 1rem;
+
+    background:
+        rgba(70,230,255,0.035);
+
+    border:
+        1px solid rgba(70,230,255,0.12);
+}
+
+.concept-nexo-label {
+    display: block;
+
+    margin-bottom: 0.25rem;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.52rem;
+
+    letter-spacing: 0.14em;
+}
+
+.concept-nexo-message p {
+    color: var(--muted);
+
+    font-size: 0.75rem;
+
+    line-height: 1.5;
+}
+
+.concept-experience-header {
+    max-width: 1000px;
+}
+
+.concept-experience-eyebrow {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+
+    letter-spacing: 0.18em;
+}
+
+.concept-experience-header h2 {
+    margin-top: 0.45rem;
+
+    font-size:
+        clamp(3rem, 6vw, 6rem);
+
+    line-height: 0.86;
+
+    letter-spacing: -0.06em;
+
+    text-transform: uppercase;
+}
+
+.concept-experience-header p {
+    max-width: 700px;
+
+    margin-top: 1rem;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.concept-metrics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 1px;
+
+    margin-top: 2rem;
+
+    background:
+        var(--border);
+}
+
+.concept-metric {
+    min-height: 90px;
+
+    padding: 1rem;
+
+    background:
+        var(--panel-solid);
+}
+
+.concept-metric span {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.12em;
+}
+
+.concept-metric strong {
+    display: block;
+
+    margin-top: 0.6rem;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.05em;
+}
+
+.concept-experience-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.05fr 0.95fr;
+
+    gap: 1rem;
+
+    margin-top: 1rem;
+}
+
+.concept-visual-panel {
+    min-height: 480px;
+
+    padding: 1rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.04),
+            rgba(4,10,18,0.9)
+        );
+
+    border:
+        1px solid var(--border);
+}
+
+.visual-panel-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 0.8rem;
+
+    border-bottom:
+        1px solid var(--border);
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.12em;
+}
+
+.visual-panel-header span:last-child {
+    color: var(--green);
+}
+
+.concept-dynamic-visual {
+    min-height: 410px;
+
+    display: grid;
+
+    place-items: center;
+}
+
+.dynamic-placeholder {
+    text-align: center;
+}
+
+.placeholder-symbol {
+    display: block;
+
+    color: var(--cyan);
+
+    font-size: 3rem;
+
+    text-shadow:
+        0 0 25px rgba(70,230,255,0.25);
+}
+
+.dynamic-placeholder p {
+    margin-top: 1rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.52rem;
+
+    letter-spacing: 0.15em;
+}
+
+.concept-information-panel {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+
+    background:
+        var(--border);
+}
+
+.info-block {
+    padding:
+        1.2rem;
+
+    background:
+        var(--panel-solid);
+}
+
+.info-block-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+
+    margin-bottom: 0.7rem;
+}
+
+.info-block-heading > span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.52rem;
+}
+
+.info-block-heading h3 {
+    font-size: 0.72rem;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+}
+
+.info-block > p {
+    color: var(--muted);
+
+    font-size: 0.78rem;
+
+    line-height: 1.7;
+}
+
+.reality-block {
+    border-left:
+        2px solid var(--gold);
+}
+
+.reality-block .info-block-heading > span {
+    color: var(--gold);
+}
+
+.concept-flow {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 0.45rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.concept-flow span {
+    padding:
+        0.45rem 0.55rem;
+
+    color: var(--cyan);
+
+    background:
+        rgba(70,230,255,0.045);
+
+    border:
+        1px solid rgba(70,230,255,0.12);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.08em;
+}
+
+.concept-flow i {
+    color: var(--dim);
+
+    font-style: normal;
+}
+
+.concept-interaction-area {
+    margin-top: 1rem;
+
+    padding: 1.2rem;
+
+    background:
+        rgba(70,230,255,0.025);
+
+    border:
+        1px solid rgba(70,230,255,0.12);
+}
+
+.interaction-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.interaction-heading span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.14em;
+}
+
+.interaction-heading strong {
+    font-size: 0.8rem;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+.interaction-content {
+    color: var(--text);
+}
+
+.concept-experience-footer {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-top: 1.5rem;
+
+    padding-top: 1rem;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.concept-nav-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    padding:
+        0.7rem;
+
+    color: var(--text);
+
+    background:
+        transparent;
+
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.concept-nav-button:hover {
+    color: var(--cyan);
+}
+
+.concept-nav-button > span {
+    color: var(--cyan);
+
+    font-size: 1.2rem;
+}
+
+.concept-nav-button small {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.46rem;
+
+    letter-spacing: 0.1em;
+}
+
+.concept-nav-button strong {
+    display: block;
+
+    margin-top: 0.3rem;
+
+    font-size: 0.7rem;
+
+    text-transform: uppercase;
+}
+
+.concept-nav-next {
+    justify-self: end;
+
+    text-align: right;
+}
+
+.concept-footer-center {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 0.55rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.46rem;
+
+    letter-spacing: 0.12em;
+}
+
+.experience-progress {
+    display: flex;
+
+    gap: 0.25rem;
+}
+
+.experience-progress span {
+    width: 20px;
+    height: 2px;
+
+    background:
+        rgba(145,162,184,0.18);
+}
+
+.experience-progress span.progress-active {
+    background:
+        var(--cyan);
+
+    box-shadow:
+        0 0 8px rgba(70,230,255,0.3);
+}
+
+
+/* =========================================================
+   HIDDEN NFT DISCOVERY
+   ========================================================= */
+
+.hidden-discovery {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1200;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 1rem;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.hidden-discovery.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.hidden-discovery-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(1,4,9,0.88);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+.hidden-nft-card {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(500px, 92vw);
+
+    padding: 2rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,18,31,0.98),
+            rgba(3,8,15,0.99)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.28);
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,0.6);
+
+    text-align: center;
+
+    transform:
+        translateY(20px)
+        scale(0.97);
+
+    transition:
+        transform 0.4s var(--ease);
+}
+
+.hidden-discovery.open .hidden-nft-card {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.hidden-discovery-close {
+    position: absolute;
+
+    top: 1rem;
+    right: 1rem;
+
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--muted);
+
+    background:
+        transparent;
+
+    border:
+        1px solid var(--border);
+
+    cursor: pointer;
+
+    font-size: 1.2rem;
+}
+
+.discovery-tag {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+}
+
+.hidden-nft-art {
+    width: 120px;
+    height: 120px;
+
+    margin:
+        1.5rem auto;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,230,255,0.12),
+            transparent 70%
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.25);
+
+    font-size: 3rem;
+
+    box-shadow:
+        0 0 45px rgba(70,230,255,0.1);
+}
+
+.hidden-nft-card h2 {
+    font-size:
+        clamp(1.7rem, 5vw, 2.7rem);
+
+    letter-spacing:
+        -0.04em;
+}
+
+.hidden-nft-card > p {
+    margin-top: 0.8rem;
+
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.nft-metadata {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 1px;
+
+    margin-top: 1.5rem;
+
+    background:
+        var(--border);
+}
+
+.nft-metadata > div {
+    padding: 1rem;
+
+    background:
+        var(--panel-solid);
+}
+
+.nft-metadata span {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.12em;
+}
+
+.nft-metadata strong {
+    display: block;
+
+    margin-top: 0.45rem;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.62rem;
+}
+
+
+/* =========================================================
+   TRAILER MODAL
+   ========================================================= */
+
+.trailer-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1300;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 1rem;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.trailer-modal.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(1,4,9,0.92);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+.trailer-container {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1100px, 94vw);
+
+    padding: 1rem;
+
+    background:
+        #030811;
+
+    border:
+        1px solid rgba(70,230,255,0.22);
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,0.7);
+}
+
+.trailer-close {
+    position: absolute;
+
+    top: 0.7rem;
+    right: 0.7rem;
+
+    z-index: 5;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--white);
+
+    background:
+        rgba(3,8,16,0.8);
+
+    border:
+        1px solid var(--border);
+
+    cursor: pointer;
+
+    font-size: 1.2rem;
+}
+
+.trailer-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding:
+        0.4rem 0.3rem 0.9rem;
+}
+
+.trailer-header span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.15em;
+}
+
+.trailer-header strong {
+    color: var(--text);
+
+    font-size: 0.68rem;
+
+    letter-spacing: 0.12em;
+}
+
+#trailerVideo {
+    display: block;
+
+    width: 100%;
+
+    max-height:
+        75vh;
+
+    background:
+        #000;
+
+    border:
+        1px solid rgba(145,162,184,0.1);
+}
+
+
+/* =========================================================
+   VALUE BURST MODAL
+   ========================================================= */
+
+.value-burst {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1400;
+
+    display: grid;
+
+    place-items: center;
+
+    padding: 1rem;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.value-burst.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.value-burst-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(1,4,9,0.9);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+.value-burst-panel {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(850px, 94vw);
+
+    padding: 2rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,20,30,0.98),
+            rgba(3,8,15,0.99)
+        );
+
+    border:
+        1px solid rgba(233,185,91,0.25);
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,0.65);
+
+    transform:
+        translateY(20px)
+        scale(0.97);
+
+    transition:
+        transform 0.4s var(--ease);
+}
+
+.value-burst.open .value-burst-panel {
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.value-close {
+    position: absolute;
+
+    top: 1rem;
+    right: 1rem;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--muted);
+
+    background:
+        transparent;
+
+    border:
+        1px solid var(--border);
+
+    cursor: pointer;
+
+    font-size: 1.2rem;
+}
+
+.value-burst-panel h2 {
+    margin-top: 0.7rem;
+
+    font-size:
+        clamp(2.5rem, 7vw, 5.5rem);
+
+    line-height: 0.86;
+
+    letter-spacing: -0.06em;
+
+    text-transform: uppercase;
+}
+
+.value-burst-panel h2 span {
+    display: block;
+
+    color: var(--gold);
+}
+
+.value-burst-panel > p {
+    max-width: 650px;
+
+    margin-top: 1.1rem;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.value-flow {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 0.7rem;
+
+    margin-top: 2rem;
+}
+
+.value-stage {
+    min-width: 130px;
+
+    padding:
+        1rem;
+
+    text-align: center;
+
+    background:
+        rgba(233,185,91,0.035);
+
+    border:
+        1px solid rgba(233,185,91,0.15);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.value-stage:hover {
+    transform:
+        translateY(-4px);
+}
+
+.value-stage span {
+    display: block;
+
+    color: var(--gold);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+}
+
+.value-stage strong {
+    display: block;
+
+    margin-top: 0.5rem;
+
+    color: var(--text);
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.12em;
+}
+
+.value-stage.active {
+    border-color:
+        var(--cyan);
+
+    background:
+        rgba(70,230,255,0.08);
+
+    box-shadow:
+        0 0 25px rgba(70,230,255,0.14);
+}
+
+.value-arrow {
+    color: var(--dim);
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.value-arrow.active {
+    color: var(--cyan);
+
+    transform:
+        translateX(3px);
+}
+
+.value-pulse {
+    animation:
+        valueBurstPulse 0.35s ease;
+}
+
+@keyframes valueBurstPulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.012);
+
+        box-shadow:
+            0 0 45px rgba(70,230,255,0.18);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   GLOBAL NEXO
+   ========================================================= */
+
+.nexo-global {
+    position: fixed;
+
+    right: 2rem;
+    bottom: 2rem;
+
+    z-index: 300;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+
+    pointer-events: none;
+}
+
+.nexo-global-avatar {
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background:
+        rgba(4,12,22,0.9);
+
+    border:
+        1px solid rgba(70,230,255,0.3);
+
+    border-radius: 50%;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 0 25px rgba(70,230,255,0.08);
+}
+
+.nexo-global-message {
+    max-width: 260px;
+
+    padding:
+        0.7rem 0.9rem;
+
+    background:
+        rgba(5,9,20,0.92);
+
+    border:
+        1px solid rgba(70,230,255,0.14);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+.nexo-global-message span {
+    display: block;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.15em;
+}
+
+.nexo-global-message p {
+    margin-top: 0.25rem;
+
+    color: var(--muted);
+
+    font-size: 0.65rem;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    min-height: 220px;
+
+    padding:
+        3rem 5vw;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: end;
+
+    gap: 2rem;
+
+    background:
+        #02050b;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.footer-brand strong {
+    display: block;
+
+    color: var(--white);
+
+    font-size: 1rem;
+
+    letter-spacing: 0.18em;
+}
+
+.footer-brand span {
+    display: block;
+
+    margin-top: 0.6rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.1em;
+}
+
+.footer-center {
+    display: flex;
+
+    gap: 1.5rem;
+
+    color: var(--muted);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+}
+
+.footer-meta {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 0.4rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.1em;
+}
+/* =========================================================
+   NETSCAPE
+   CSS PART 2
+   Interaction systems, responsive layout and animations
+   ========================================================= */
+
+
+/* =========================================================
+   VALUE BURST EXPERIENCE
+   ========================================================= */
+
+.value-burst-demo {
+    position: relative;
+
+    max-width: 1300px;
+
+    margin:
+        1.2rem auto 0;
+
+    padding: 2rem;
+
+    display: grid;
+
+    grid-template-columns:
+        0.9fr 1.1fr;
+
+    gap: 2rem;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(233,185,91,0.045),
+            rgba(8,17,31,0.82)
+        );
+
+    border:
+        1px solid rgba(233,185,91,0.18);
+}
+
+.value-burst-demo::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    right: -180px;
+    top: -180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(233,185,91,0.035);
+
+    filter:
+        blur(45px);
+
+    pointer-events: none;
+}
+
+.value-burst-demo-copy {
+    position: relative;
+
+    z-index: 2;
+}
+
+.value-burst-demo-copy h3 {
+    margin-top: 0.6rem;
+
+    font-size:
+        clamp(2.3rem, 4vw, 4rem);
+
+    line-height: 0.88;
+
+    letter-spacing: -0.055em;
+
+    text-transform: uppercase;
+}
+
+.value-burst-demo-copy h3 span {
+    color: var(--gold);
+}
+
+.value-burst-demo-copy p {
+    max-width: 520px;
+
+    margin-top: 1rem;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.value-wallet-readout {
+    width: fit-content;
+
+    margin-top: 1.4rem;
+
+    padding:
+        0.8rem 1rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.35rem;
+
+    background:
+        rgba(70,230,255,0.035);
+
+    border:
+        1px solid rgba(70,230,255,0.15);
+}
+
+.value-wallet-readout span {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.15em;
+}
+
+.balance-value {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size:
+        clamp(1.3rem, 2.5vw, 2rem);
+
+    letter-spacing: 0.08em;
+
+    transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.balance-value.balance-flash {
+    color: var(--white);
+
+    text-shadow:
+        0 0 20px rgba(70,230,255,0.75);
+
+    transform:
+        scale(1.08);
+}
+
+.value-burst-console {
+    position: relative;
+
+    min-height: 330px;
+
+    display: grid;
+
+    place-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(233,185,91,0.08),
+            transparent 45%
+        ),
+        #030811;
+
+    border:
+        1px solid rgba(233,185,91,0.14);
+}
+
+.value-emitter-orbit {
+    position: relative;
+
+    width: 230px;
+    height: 230px;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid rgba(233,185,91,0.2);
+
+    border-radius: 50%;
+
+    transform:
+        rotate(-10deg);
+
+    animation:
+        valueOrbit 10s linear infinite;
+}
+
+@keyframes valueOrbit {
+
+    from {
+        transform:
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+.value-emitter-glow {
+    position: absolute;
+
+    inset: 30px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(233,185,91,0.08);
+
+    filter:
+        blur(25px);
+
+    animation:
+        emitterGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes emitterGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+
+        transform:
+            scale(0.92);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scale(1.08);
+    }
+
+}
+
+.value-emitter {
+    position: relative;
+
+    z-index: 3;
+
+    width: 125px;
+    height: 125px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5rem;
+
+    color: #171006;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffe5a4,
+            var(--gold) 52%,
+            #9c762d
+        );
+
+    border:
+        2px solid rgba(255,255,255,0.28);
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 35px rgba(233,185,91,0.18);
+
+    transform:
+        rotate(10deg);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.value-emitter:hover {
+    transform:
+        rotate(10deg)
+        scale(1.06);
+
+    box-shadow:
+        0 0 55px rgba(233,185,91,0.3);
+}
+
+.value-emitter:active {
+    transform:
+        rotate(10deg)
+        scale(0.94);
+}
+
+.value-emitter-core {
+    font-size: 2rem;
+
+    line-height: 1;
+}
+
+.value-emitter strong {
+    max-width: 75px;
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.42rem;
+
+    line-height: 1.3;
+
+    letter-spacing: 0.08em;
+}
+
+.value-emitter.fire {
+    animation:
+        emitterFire 0.3s ease;
+}
+
+@keyframes emitterFire {
+
+    0% {
+        transform:
+            rotate(10deg)
+            scale(1);
+    }
+
+    45% {
+        transform:
+            rotate(10deg)
+            scale(0.86);
+    }
+
+    100% {
+        transform:
+            rotate(10deg)
+            scale(1.04);
+    }
+
+}
+
+.value-particle-field {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.value-particle {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    background:
+        var(--gold);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 14px rgba(233,185,91,0.7);
+
+    pointer-events: none;
+
+    animation:
+        valueParticleTravel
+        0.8s
+        var(--ease)
+        forwards;
+}
+
+@keyframes valueParticleTravel {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.4);
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(
+                calc(-50% + var(--particle-x)),
+                calc(-50% + var(--particle-y))
+            )
+            scale(0.05);
+    }
+
+}
+
+.value-transaction-status {
+    position: absolute;
+
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+
+    text-align: center;
+}
+
+.value-transaction-status.success {
+    color: var(--green);
+
+    text-shadow:
+        0 0 12px rgba(101,230,161,0.3);
+}
+
+
+/* =========================================================
+   VALUE MODAL ADDITIONS
+   ========================================================= */
+
+.value-modal-wallet {
+    width: fit-content;
+
+    margin-top: 1.2rem;
+
+    padding:
+        0.7rem 0.9rem;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    background:
+        rgba(70,230,255,0.035);
+
+    border:
+        1px solid rgba(70,230,255,0.13);
+}
+
+.value-modal-wallet span {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.12em;
+}
+
+.value-modal-wallet .balance-value {
+    font-size: 1rem;
+}
+
+.value-emitter-modal {
+    width: 95px;
+    height: 95px;
+
+    margin-top: 1.3rem;
+
+    transform:
+        rotate(0deg);
+}
+
+.value-emitter-modal:hover {
+    transform:
+        rotate(0deg)
+        scale(1.06);
+}
+
+.value-emitter-modal:active {
+    transform:
+        rotate(0deg)
+        scale(0.94);
+}
+
+.modal-particle-field {
+    position: absolute;
+
+    left: 50%;
+    top: 47%;
+
+    width: 260px;
+    height: 180px;
+
+    transform:
+        translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   INTERACTIVE CONCEPT CONTENT
+   ========================================================= */
+
+.interaction-card {
+    width: 100%;
+
+    padding: 1rem;
+
+    background:
+        rgba(255,255,255,0.015);
+
+    border:
+        1px solid var(--border);
+}
+
+.interaction-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.interaction-card-header span {
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.13em;
+}
+
+.interaction-card-header strong {
+    color: var(--text);
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+.demo-button {
+    min-height: 42px;
+
+    padding:
+        0.7rem 0.9rem;
+
+    color: var(--text);
+
+    background:
+        rgba(70,230,255,0.04);
+
+    border:
+        1px solid rgba(70,230,255,0.18);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.53rem;
+
+    letter-spacing: 0.08em;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.demo-button:hover {
+    color: var(--cyan);
+
+    border-color:
+        rgba(70,230,255,0.45);
+
+    background:
+        rgba(70,230,255,0.08);
+
+    transform:
+        translateY(-2px);
+}
+
+.demo-button:disabled {
+    cursor: default;
+}
+
+.demo-button.completed {
+    color: var(--green);
+
+    border-color:
+        rgba(101,230,161,0.45);
+
+    background:
+        rgba(101,230,161,0.08);
+}
+
+.demo-button:disabled:hover {
+    transform:
+        none;
+}
+
+.interaction-result {
+    min-height: 22px;
+
+    margin-top: 0.8rem;
+
+    color: var(--muted);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    line-height: 1.5;
+}
+
+.interaction-result.success {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   BLOCKCHAIN INTERACTION
+   ========================================================= */
+
+.interactive-chain {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    overflow-x: auto;
+
+    padding-bottom: 0.8rem;
+}
+
+.interactive-chain .chain-block {
+    flex:
+        0 0 130px;
+
+    min-height: 110px;
+}
+
+.chain-block.new-block {
+    animation:
+        blockAppear 0.25s var(--ease) both;
+}
+
+@keyframes blockAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   SMART CONTRACT INTERACTION
+   ========================================================= */
+
+.contract-interaction {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    gap: 1rem;
+
+    align-items: center;
+}
+
+.contract-rule {
+    padding: 1rem;
+
+    background:
+        rgba(169,132,255,0.035);
+
+    border:
+        1px solid rgba(169,132,255,0.13);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+
+    line-height: 1.8;
+}
+
+.contract-rule span {
+    color: var(--dim);
+}
+
+.contract-rule strong {
+    color: var(--purple);
+}
+
+
+/* =========================================================
+   CRYPTO INTERACTION
+   ========================================================= */
+
+.crypto-interaction {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 1.1rem;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(233,185,91,0.05),
+            rgba(5,9,17,0.9)
+        );
+
+    border:
+        1px solid rgba(233,185,91,0.18);
+}
+
+.crypto-interaction::before {
+    content: "";
+
+    position: absolute;
+
+    width: 200px;
+    height: 200px;
+
+    right: -100px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(233,185,91,0.04);
+
+    filter:
+        blur(20px);
+}
+
+.crypto-balance-row {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.crypto-balance-label {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.5rem;
+
+    letter-spacing: 0.12em;
+}
+
+.crypto-balance {
+    color: var(--gold);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 1.4rem;
+
+    letter-spacing: 0.05em;
+}
+
+.crypto-transfer-path {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 0.6rem;
+
+    margin-top: 1rem;
+}
+
+.crypto-account {
+    padding:
+        0.75rem;
+
+    background:
+        rgba(255,255,255,0.018);
+
+    border:
+        1px solid rgba(145,162,184,0.1);
+}
+
+.crypto-account span {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.45rem;
+
+    letter-spacing: 0.1em;
+}
+
+.crypto-account strong {
+    display: block;
+
+    margin-top: 0.35rem;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.58rem;
+}
+
+.crypto-transfer-arrow {
+    color: var(--gold);
+
+    font-size: 1.2rem;
+}
+
+.crypto-interaction .demo-button {
+    margin-top: 1rem;
+
+    color: #171006;
+
+    background:
+        var(--gold);
+
+    border-color:
+        var(--gold);
+}
+
+
+/* =========================================================
+   NFT INTERACTION
+   ========================================================= */
+
+.nft-interaction {
+    display: grid;
+
+    grid-template-columns:
+        130px 1fr;
+
+    gap: 1rem;
+
+    align-items: center;
+}
+
+.nft-mini-card {
+    position: relative;
+
+    width: 130px;
+    height: 150px;
+
+    padding: 8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,230,255,0.07),
+            rgba(3,8,15,0.95)
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.2);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.nft-mini-card.minted {
+    border-color:
+        rgba(70,230,255,0.5);
+
+    box-shadow:
+        0 0 25px rgba(70,230,255,0.12);
+}
+
+.nft-mini-art {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--cyan);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,230,255,0.1),
+            transparent 65%
+        );
+
+    border:
+        1px solid rgba(70,230,255,0.1);
+
+    font-size: 2.2rem;
+}
+
+.nft-mini-id {
+    position: absolute;
+
+    right: 7px;
+    bottom: 6px;
+
+    color: var(--cyan);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.45rem;
+}
+
+
+/* =========================================================
+   DAO INTERACTION
+   ========================================================= */
+
+.dao-voting {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 0.7rem;
+}
+
+.dao-vote {
+    min-height: 85px;
+
+    padding: 0.8rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    color: var(--text);
+
+    background:
+        rgba(169,132,255,0.025);
+
+    border:
+        1px solid rgba(169,132,255,0.15);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dao-vote:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(169,132,255,0.4);
+}
+
+.dao-vote.selected {
+    border-color:
+        var(--cyan);
+
+    background:
+        rgba(70,230,255,0.1);
+}
+
+.dao-vote span {
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.48rem;
+
+    letter-spacing: 0.1em;
+}
+
+.dao-vote strong {
+    color: var(--purple);
+
+    font-size: 0.72rem;
+}
+
+.dao-vote-count {
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.55rem;
+}
+
+
+/* =========================================================
+   WALLET INTERACTION
+   ========================================================= */
+
+.wallet-interaction {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    gap: 1rem;
+
+    align-items: center;
+}
+
+.wallet-address {
+    padding:
+        0.9rem;
+
+    background:
+        rgba(70,230,255,0.03);
+
+    border:
+        1px solid rgba(70,230,255,0.12);
+}
+
+.wallet-address span {
+    display: block;
+
+    color: var(--dim);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.45rem;
+
+    letter-spacing: 0.1em;
+}
+
+.wallet-address strong {
+    display: block;
+
+    margin-top: 0.45rem;
+
+    color: var(--text);
+
+    font-family:
+        "IBM Plex Mono",
+        monospace;
+
+    font-size: 0.62rem;
+}
+
+.wallet-connected {
+    border-color:
+        rgba(101,230,161,0.3);
+
+    background:
+        rgba(101,230,161,0.035);
+}
+
+.wallet-connected strong {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   ACTIVE SECTION TRANSITIONS
+   ========================================================= */
+
+.section.section-enter {
+    animation:
+        sectionEnter 0.75s var(--ease) both;
+}
+
+@keyframes sectionEnter {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+.reveal-up {
+    opacity: 0;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        opacity 0.7s var(--ease),
+        transform 0.7s var(--ease);
+}
+
+.reveal-up.visible {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   CONCEPT CARD INTERACTION STATES
+   ========================================================= */
+
+.concept-card.interacting {
+    border-color:
+        rgba(70,230,255,0.45);
+
+    box-shadow:
+        0 0 35px rgba(70,230,255,0.08);
+}
+
+.concept-card.interacting .concept-card-glow {
+    opacity: 1;
+
+    transform:
+        scale(1.25);
+}
+
+.concept-card-glow {
+    transition:
+        opacity 0.3s ease,
+        transform 0.4s var(--ease);
+}
+
+
+/* =========================================================
+   WALLET FLASH
+   ========================================================= */
+
+.wallet-flash {
+    animation:
+        walletFlash 0.55s var(--ease);
+}
+
+@keyframes walletFlash {
+
+    0% {
+        transform:
+            scale(1);
+
+        filter:
+            brightness(1);
+    }
+
+    35% {
+        transform:
+            scale(1.08);
+
+        filter:
+            brightness(1.8);
+    }
+
+    100% {
+        transform:
+            scale(1);
+
+        filter:
+            brightness(1);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    :root {
+        --nav-height: 68px;
+    }
+
+    .navbar {
+        padding:
+            0 1.2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding:
+            130px 1.4rem 80px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size:
+            clamp(3.5rem, 15vw, 7rem);
+    }
+
+    .hero-nexo {
+        right: 3vw;
+        top: auto;
+        bottom: 8%;
+
+        transform:
+            scale(0.72);
+    }
+
+    .hero-side-data {
+        display: none;
+    }
+
+    .section {
+        padding:
+            110px 1.2rem;
+    }
+
+    .section-header {
+        grid-template-columns:
+            1fr;
+
+        gap: 0.4rem;
+    }
+
+    .evolution-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .evolution-card {
+        min-height: 330px;
+    }
+
+    .network-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .network-instruction {
+        align-items: flex-start;
+
+        text-align: left;
+    }
+
+    .concept-card {
+        flex-basis:
+            min(78vw, 360px);
+    }
+
+    .carousel-prev {
+        left: -5px;
+    }
+
+    .carousel-next {
+        right: -5px;
+    }
+
+    .network-bottom-strip {
+        flex-direction: column;
+
+        gap: 2rem;
+    }
+
+    .network-stats {
+        gap: 1.5rem;
+
+        flex-wrap: wrap;
+    }
+
+    .contract-demo,
+    .value-burst-demo,
+    .passport-layout {
+        grid-template-columns:
+            1fr;
+    }
+
+    .value-burst-console {
+        min-height: 300px;
+    }
+
+    .passport-layout {
+        gap: 2rem;
+    }
+
+    .concept-experience {
+        width: 100%;
+        height: 96vh;
+    }
+
+    .concept-experience-body {
+        padding:
+            1.2rem;
+    }
+
+    .concept-experience-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .concept-visual-panel {
+        min-height: 360px;
+    }
+
+    .concept-dynamic-visual {
+        min-height: 290px;
+    }
+
+    .concept-metrics {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .footer {
+        grid-template-columns:
+            1fr;
+
+        align-items: start;
+    }
+
+    .footer-meta {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: 62px;
+    }
+
+    .logo {
+        font-size: 0.9rem;
+    }
+
+    .connect-button {
+        padding:
+            0.55rem 0.75rem;
+
+        font-size: 0.55rem;
+    }
+
+    .hero {
+        padding:
+            105px 1rem 70px;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.58rem;
+
+        letter-spacing:
+            0.14em;
+    }
+
+    .hero-title {
+        font-size:
+            clamp(3rem, 17vw, 5.5rem);
+    }
+
+    .hero-description {
+        font-size: 0.85rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .hero-discovery-hint {
+        max-width: 290px;
+    }
+
+    .hero-nexo {
+        right: -45px;
+        bottom: 3%;
+
+        transform:
+            scale(0.55);
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .section {
+        padding:
+            90px 1rem;
+    }
+
+    .section-header h2,
+    .network-header h2 {
+        font-size:
+            clamp(2.8rem, 15vw, 5rem);
+    }
+
+    .evolution-card {
+        min-height: 280px;
+    }
+
+    .evolution-transition {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 0.8rem;
+    }
+
+    .concept-card {
+        flex-basis:
+            82vw;
+
+        min-height: 470px;
+    }
+
+    .concept-card-visual {
+        min-height: 210px;
+    }
+
+    .network-stats {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 0.5rem;
+    }
+
+    .network-stat {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 0.2rem;
+    }
+
+    .network-stat strong {
+        font-size: 1.2rem;
+    }
+
+    .blockchain-demo,
+    .contract-demo,
+    .value-burst-demo {
+        padding: 1rem;
+    }
+
+    .demo-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .demo-actions {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .crypto-transfer-path {
+        grid-template-columns:
+            1fr;
+    }
+
+    .crypto-transfer-arrow {
+        text-align: center;
+    }
+
+    .nft-interaction,
+    .wallet-interaction {
+        grid-template-columns:
+            1fr;
+    }
+
+    .dao-voting {
+        grid-template-columns:
+            1fr;
+    }
+
+    .value-burst-console {
+        min-height: 270px;
+    }
+
+    .value-emitter-orbit {
+        width: 190px;
+        height: 190px;
+    }
+
+    .value-emitter {
+        width: 105px;
+        height: 105px;
+    }
+
+    .value-flow {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .value-arrow {
+        text-align: center;
+
+        transform:
+            rotate(90deg);
+    }
+
+    .value-arrow.active {
+        transform:
+            rotate(90deg)
+            translateX(3px);
+    }
+
+    .value-stage {
+        min-width: 0;
+    }
+
+    .passport-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .passport-footer {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .passport-footer .btn {
+        width: 100%;
+    }
+
+    .concept-experience-top {
+        grid-template-columns:
+            1fr auto;
+    }
+
+    .concept-network-status {
+        display: none;
+    }
+
+    .concept-experience-header h2 {
+        font-size:
+            clamp(2.6rem, 13vw, 4.5rem);
+    }
+
+    .concept-metrics {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .concept-metric {
+        min-height: 80px;
+    }
+
+    .concept-experience-footer {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .concept-footer-center {
+        display: none;
+    }
+
+    .concept-nav-next {
+        justify-self: end;
+    }
+
+    .concept-nexo-message {
+        max-width: 250px;
+    }
+
+    .concept-nexo-avatar {
+        width: 58px;
+        height: 58px;
+    }
+
+    .concept-nexo-scan {
+        width: 58px;
+        height: 58px;
+    }
+
+    .footer {
+        padding:
+            2rem 1rem;
+    }
+
+    .footer-center {
+        flex-wrap: wrap;
+
+        gap: 0.8rem;
+    }
+
+    .nexo-global {
+        right: 0.8rem;
+        bottom: 0.8rem;
+    }
+
+    .nexo-global-message {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+}
+
+
+/* =========================================================
+   FINAL INTERACTION SAFETY STATES
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline:
+        2px solid var(--cyan);
+
+    outline-offset:
+        3px;
+}
+
+.value-emitter:focus-visible {
+    outline:
+        2px solid var(--white);
+
+    outline-offset:
+        5px;
+}
+
+.hidden-discovery.open,
+.trailer-modal.open,
+.value-burst.open,
+.concept-overlay.open {
+    pointer-events: auto;
+}
+
+.hidden-discovery:not(.open),
+.trailer-modal:not(.open),
+.value-burst:not(.open),
+.concept-overlay:not(.open) {
+    pointer-events: none;
+}
